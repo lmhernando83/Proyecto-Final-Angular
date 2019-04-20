@@ -1,0 +1,63 @@
+
+<div class="wrapper">
+  <div class="container">
+      <button class="btn btn--solid" routerLink="/init-panel"><i class="icon-arrow-left2"><span> Back</span></i></button>
+
+      <div class="controls">
+        <div>
+          <h2 class="controls__header">My List</h2>
+        </div>
+        <div>
+          <button class="btn controls__btn controls--success" type="button" id="addTask" (click)="openModalTask()">Add New Task</button>
+          <button class="btn controls__btn" type="button" id="assigTask" (click)="assignedTask()">Asigned Task</button>
+          <button *ngIf="" class="btn controls__btn controls--success" type="button"><i class="icon-checkmark"><span class="sr-only">Asigned Task</span></i></button>
+          <button *ngIf="" class="btn controls__btn controls--warn" type="button"><i class="icon-cross"><span class="sr-only">Delete Task</span></i></button>
+        </div>
+      </div>
+        <ul class="list-task">
+          <li class="list-task__item task-item--done" *ngFor="let task of tasks; let i = index;">
+            <input class="list-task__checkbox" type="checkbox">
+            <div class="list-task__info" (click)="toggleTask[i] = !toggleTask[i]">
+              <p class="list-task__title title--done">{{task.title}}</p>
+              <p class="list-task__date">{{task.date | date: 'dd / MM / yyyy'}}</p>
+            </div>
+            <div class="list-task__status">
+              <p class="list-task__status--done">{{task.status}}</p>
+            </div>
+            <a routerLink="../my-profile" class="list-task__link">
+              <!-- <img [src]=user.image class="list-task__img"> -->
+            </a>
+            <button (click)="editTask(task)" type="button" class="btn btn--solid btn--icon"><i class="icon-pencil"><span class="sr-only">Edit Task</span></i></button>
+            <button (click)="deleteTask(task.id)" type="button" class="btn btn--solid btn--icon"><i class="icon-bin"><span class="sr-only"
+              >Delete Task</span></i></button>
+            <div class="list-task__description" *ngIf="toggleTask[i]">{{task.description}}</div>
+          </li>
+        </ul>
+
+        <hr class="list-task__divider">
+
+        <ul class="list-task">
+          <h2 class="list-task__header">Todo List</h2>
+          <li class="list-task__item" *ngFor="let todo of todoTask; let i = index;" [ngClass]="{'list-task--done': todo.complete, 'list-task--warn': todo.incomplete}">
+            <div class="list-task__info" (click)="toggleTodo[i] = !toggleTodo[i]">
+              <p class="list-task__title title--done">{{todo.title}}</p>
+              <p class="list-task__date">{{todo.date | date: 'dd / MM / yyyy'}}</p>
+            </div>
+            <div class="list-task__status">
+              <p class="list-task__status--done">{{todo.status}}</p>
+            </div>
+            <a routerLink="../my-profile" class="list-task__link">
+              <!-- <img [src]=user.image class="list-task__img"> -->
+            </a>
+            <button (click)="rejectTodo(todo.id)" *ngIf="todo.status === 'Assigned'" type="button" class="btn btn--solid btn--icon">
+            <i class="icon-cross"><span class="sr-only">Reject Task</span></i></button>
+            <button (click)="acceptTodo(todo)" *ngIf="todo.status === 'Assigned'" type="button" class="btn btn--solid btn--icon">
+            <i class="icon-checkmark"><span class="sr-only">Accept Task</span></i></button>
+            <button (click)="incompleteTodo(todo)" *ngIf="todo.status === 'Accepted'" class="btn">Incomplete</button>
+            <button (click)="completeTodo(todo)"  *ngIf="todo.status === 'Accepted'" class="btn">Complete</button>
+            <div class="list-task__description" *ngIf="toggleTodo[i]">{{todo.description}}</div>
+          </li>
+        </ul>
+  </div>
+</div>
+

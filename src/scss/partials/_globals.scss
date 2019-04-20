@@ -1,0 +1,35 @@
+body{
+  font-family: $carme;
+  background: #394053;
+  color: white;
+}
+
+h1, h2, h3, h4, h5, h6, a, button, i > span{
+  font-family: $roboto;
+}
+
+.container{
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+i{
+  font-size: 20px;
+}
+
+span.sr-only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.wrapper{
+  padding-top: 76px;
+  padding-bottom: 76px;
+}

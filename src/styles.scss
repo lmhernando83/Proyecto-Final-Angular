@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Carme|Lato:100,400|Roboto:100,400');
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import './scss/components/material-form';
+@import './scss/partials/reset';
+@import './scss/partials/variables';
+@import './scss/partials/globals';
+@import './scss/partials/fonts';
+
+
+//Components
+@import './scss/components/buttons';
+@import './scss/components/dropdown';
+@import './scss/components/badge';
+@import './scss/components/form';
+@import './scss/components/map-controls';
+
+
+
+

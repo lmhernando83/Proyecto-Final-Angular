@@ -1,0 +1,9 @@
+.map-controls{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+
+  & > div{
+    display: flex;
+  }
+}

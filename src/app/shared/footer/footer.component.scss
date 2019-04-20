@@ -1,0 +1,13 @@
+.site__footer {
+  background-color: black;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: white;
+  height: 56px;
+  padding: 0 20px;
+
+  p{
+    font-size: 13px;
+  }
+}

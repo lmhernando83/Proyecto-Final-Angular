@@ -1,0 +1,42 @@
+.btn{
+  display: block;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  font-size: 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  padding: 5px 12px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: bold;
+  border: 2px solid green;
+
+  &:active{
+    transform: scale(.9);
+  }
+
+  &--solid{
+    border: 0;
+  }
+
+  &--black{
+    border: 0;
+    background: #000000;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  &--icon{
+    padding: 0 5px;
+  }
+
+  &--large{
+    width: 100%;
+    font-size: 15px;
+  }
+
+  &--close {
+    align-self: flex-end;
+  }
+}

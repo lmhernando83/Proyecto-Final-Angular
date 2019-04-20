@@ -1,0 +1,11 @@
+.site-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 45px;
+  padding: 0 10px;
+}

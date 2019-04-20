@@ -1,0 +1,34 @@
+<div class="task-form">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSave(form.value)">
+    <button mat-dialog-close type="button"
+    class="btn btn--solid btn--close"><i class="icon-cross"><span class="sr-only">Close</span></i>
+    </button>
+    <input type="hidden" formControlName="id">
+    <div>
+      <mat-form-field class="form__label">
+        <input matInput class="form__input" formControlName="title" placeholder="Task Title*">
+        <mat-error>This Field is Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="form__label">
+        <textarea matInput class="form__textarea" formControlName="description" placeholder="Task Description*"></textarea>
+        <mat-error>This Field is Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="form__label">
+        <input matInput class="form__date" [matDatepicker]="picker" formControlName="date" placeholder="Choose a date*">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>This Field is Required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <button type="submit" class="btn btn--large" *ngIf="!data" [disabled]="form.invalid">Add Task</button>
+      <button (click)="onEdit(form.value)" type="button" class="btn btn--large" *ngIf="data" [disabled]="form.invalid">Edit Task</button>
+    </div>
+  </form>
+
+</div>

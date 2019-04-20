@@ -1,0 +1,22 @@
+.login{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,1);
+  transform: translateX(0%);
+  transition: transform .45s cubic-bezier(.22,.68,0,1.71);
+
+  .container{
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 20px 20px;
+  }
+
+  a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+  }
+}

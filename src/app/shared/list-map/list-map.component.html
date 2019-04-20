@@ -1,0 +1,24 @@
+<div class="wrapper">
+  <div class="container">
+      <div class="map-controls">
+        <button routerLink="/init-panel" class="btn btn--solid"><i class="icon-arrow-left2"><span> Back</span></i></button>
+        <div>
+          <button routerLink="/map" class="btn btn--solid"><i class="icon-map"><span class="sr-only">Map</span></i></button>
+          <button routerLink="/list-map" class="btn btn--solid"><i class="icon-file-text"><span class="sr-only">Map List</span></i></button>
+        </div>
+      </div>
+    <ul class="list-map">
+      <li *ngFor="let user of users" class="list-map__item list-map__item--done">
+        <a [href]="user.url" class="list-map__item--link">
+          <img [src]="user.image" class="list-map__img">
+        </a>
+        <div class="list-map__info">
+          <p class="list-map__title list-map__title--done">{{user.name}}</p>
+        </div>
+        <div class="list-map__status">
+          <p class="list-map__status--distance">200m</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

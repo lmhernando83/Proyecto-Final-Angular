@@ -1,0 +1,45 @@
+.list-map{
+  list-style: none;
+  border-bottom: 0;
+  margin: 25px 0;
+
+  a{
+    margin: 0;
+  }
+
+  &__item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+    padding: 15px 5px;
+    flex-wrap: wrap;
+    cursor: pointer;
+  }
+
+  &__img{
+    border-radius: 50px;
+  }
+
+  &__info{
+    flex-grow: 1;
+    align-self: center;
+    margin-left: 15px;
+  }
+
+  &__title{
+    font-size: 15px;
+  }
+
+  &__link{
+    margin: 0;
+  }
+
+  &__status--distance{
+    font-size: 12px;
+  }
+
+  &__btn{
+    margin-left: 10px;
+  }
+}

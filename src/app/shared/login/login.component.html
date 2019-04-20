@@ -1,0 +1,22 @@
+<div class="login">
+  <div class="container">
+    <button mat-dialog-close class="btn btn--solid"><i class="icon-arrow-left2"><span> Back</span></i></button>
+    <form class="form" [formGroup]="form" (ngSubmit)="onSave(form.value)">
+      <div>
+        <mat-form-field class="form__label">
+          <input matInput class="form__input" formControlName="user" placeholder="User*">
+          <mat-error>This Field is Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="form__label">
+          <input matInput class="form__input" formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Password*">
+          <mat-error>This Field is Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <button type="submit" class="btn btn--large" [disabled]="form.invalid">Login</button>
+      </div>
+    </form>
+  </div>
+</div>

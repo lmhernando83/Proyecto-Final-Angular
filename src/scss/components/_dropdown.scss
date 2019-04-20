@@ -1,0 +1,22 @@
+.dropdown {
+  display: block;
+  background: black;
+  position: absolute;
+  width: 120px;
+  top: 40px;
+  right: 0px;
+  border-radius: 5px;
+
+  &__item{
+    color: white;
+    display: flex;
+    padding: 10%;
+    text-decoration: none;
+    margin: 0;
+  }
+
+  &__item:hover{
+    background: grey;
+  }
+}
+

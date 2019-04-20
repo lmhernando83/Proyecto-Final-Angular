@@ -1,0 +1,6 @@
+<header class="site-header">
+    <app-notifications *ngIf="user"></app-notifications>
+    <app-brand></app-brand>
+    <app-logs *ngIf="!user"></app-logs>
+    <app-user-settings *ngIf="user"></app-user-settings>
+</header>
