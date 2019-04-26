@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://5c9e29c9595c55001487bea4.mockapi.io',
+  api_url: 'http://localhost:3000',
   // Upload on github with no Google Maps Api
   maps_api: ''
 };

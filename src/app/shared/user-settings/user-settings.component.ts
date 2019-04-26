@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-settings',
@@ -8,10 +9,19 @@ import { Component } from '@angular/core';
 
 export class UserSettingsComponent {
 
+  constructor(
+    private router: Router) {
+  }
+
   dropdownOpen: boolean = false;
 
   toogleClass(){
     this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  logOut(){
+    localStorage.removeItem('token');
+    this.router.navigate(['/'])
   }
 }
 

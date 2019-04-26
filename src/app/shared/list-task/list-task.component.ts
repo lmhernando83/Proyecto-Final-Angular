@@ -3,6 +3,8 @@ import { MatDialog, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { AddTaskModel } from '../../models/add-task.model';
 import { AddTaskFormComponent } from '../add-task-form/add-task-form.component';
 import { AssignedTaskComponent } from '../assigned-task/assigned-task.component';
+import { AddTaskService } from '../../services/add-task.service';
+
 
 
 @Component({
@@ -16,40 +18,51 @@ export class ListTaskComponent implements OnInit {
 @Input() save;
 @Input() edit;
 
-  constructor(public dialog: MatDialog, public snackbar: MatSnackBar){}
+  constructor(public dialog: MatDialog, public snackbar: MatSnackBar, private addTaskService: AddTaskService,){}
 
-  tasks: AddTaskModel[];
-  idForTask: number;
-  taskTitle: string;
-  taskDescription: string;
-  taskDate: Date;
-  taskStatus: string = 'Pending';
+  tasks: AddTaskModel[] = [];
   toggleTask: any = {};
+  task = false;
 
   todoTask: AddTaskModel[];
-  idForTodo: number;
-  todoTitle: string;
-  todoDescription: string;
-  todoDate: Date;
-  todoStatus: string = 'Assigned';
   toggleTodo: any = {};
 
-
+  //Opens new Task Modal and Add the task
   openModalTask(){
     const dialogRef = this.dialog.open(AddTaskFormComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.tasks.push(result);
+        //Post a Mongo
+        this.addTaskService.addTask(result).then(
+          response => {
+            console.log('New Task Add', response);
+            this.getTasks()
+          },
+          err => {
+            console.log('error New Task Add', err);
+          }
+        );
+
+        // Mensage
         this.success('New task added');
       }
     });
   }
 
+  getTasks(){
+    this.addTaskService.getTask().then((tasks: any)=> {
+      this.tasks = tasks;
+    });
+  }
+
+  // Opens Assigned task Modal
   assignedTask(){
     this.dialog.open(AssignedTaskComponent);
   }
 
+
+  // Config Messages
   success(msg){
     this.config['panelClass'] = ['notification' , 'success'];
     this.snackbar.open(msg, '', this.config);
@@ -62,98 +75,94 @@ export class ListTaskComponent implements OnInit {
   }
 
 
-  ngOnInit(){
-    this.idForTask = 4;
-    this.idForTodo = 4;
-    this.tasks = [
-      {
-        id: 1,
-        title: 'Finish Angular Screencast',
-        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque consequatur alias quod corrupti illo rerum veritatis dolorum dicta sed perferendis.',
-        date: new Date(),
-        status: this.taskStatus
-      },
-      {
-        id: 2,
-        title: 'Take over world',
-        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque consequatur alias quod corrupti illo rerum veritatis dolorum dicta sed perferendis.',
-        date: new Date(),
-        status: this.taskStatus
-      },
-      {
-        id: 3,
-        title: 'One more thing',
-        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque consequatur alias quod corrupti illo rerum veritatis dolorum dicta sed perferendis.',
-        date: new Date(),
-        status: this.taskStatus
-      },
-    ];
-    this.todoTask = [
-      {
-        id: 1,
-        title: 'Finish Angular Screencast',
-        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque consequatur alias quod corrupti illo rerum veritatis dolorum dicta sed perferendis.',
-        date: new Date(),
-        status: this.todoStatus
-      },
-      {
-        id: 2,
-        title: 'Take over world',
-        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque consequatur alias quod corrupti illo rerum veritatis dolorum dicta sed perferendis.',
-        date: new Date(),
-        status: this.todoStatus,
-      },
-      {
-        id: 3,
-        title: 'One more thing',
-        description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque consequatur alias quod corrupti illo rerum veritatis dolorum dicta sed perferendis.',
-        date: new Date(),
-        status: this.todoStatus
-      },
-    ];
+  deleteTask(id: number): void {
+    this.addTaskService.deleteTask(id).then((id: any) => {
+      debugger
+      this.tasks = this.tasks.filter(task => task.id !== id);
+      this.getTasks();
+      this.success('Task Deleted');
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
-  deleteTask(id: number): void {
-    this.tasks = this.tasks.filter(task => task.id !== id);
-    this.success('Task Deleted');
-  }
 
   editTask(task): void {
     const dialogRef = this.dialog.open(AddTaskFormComponent, {data: task});
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        let index = this.tasks.findIndex(task => {
-          return task.id === result.id
-        });
-        this.tasks.splice(index, 1, result);
-        this.success('Task Edited');
+    dialogRef.afterClosed().subscribe(task => {
+      if(task){
+        this.addTaskService.editTask(task).then(
+          data => {
+            console.log('Edit Task', data);
+            this.getTasks()
+            //Mensaje
+            this.success('Task Edited');
+          },
+          err => {
+            console.log('error Edit Task', err);
+          }
+        );
       }
     });
   }
 
+  getTodos(){
+    this.addTaskService.getTodo().then((todos: any)=> {
+      this.todoTask = todos;
+    });
+  }
+
   rejectTodo(id: number): void {
-    this.todoTask = this.todoTask.filter(todo => todo.id !== id);
-    this.success('Todo Rejected');
+    this.addTaskService.rejectTodo(id).then((id: any) => {
+      this.tasks = this.tasks.filter(task => task.id !== id);
+      this.getTodos();
+      this.success('Todo Rejected');
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
 
-  acceptTodo(todo): void {
-    todo.status = 'Accepted';
-    this.success('Todo Accepted');
+  acceptTodo(id): void {
+    this.addTaskService.acceptTodo(id).then((id: any) => {
+      this.tasks = this.tasks.filter(task => task.id !== id);
+      this.getTodos();
+      this.success('Todo Accepted');
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
 
-  completeTodo(todo): void{
-      todo.status = 'Complete';
-      todo.complete = true;
-      this.success('Todo Mark has Completed');
+  completeTodo(id): void{
+      this.addTaskService.completeTodo(id).then((res: any) => {
+        debugger
+        this.tasks = this.tasks.filter(task => task.id !== id);
+        this.getTodos();
+        this.success('Todo Mark has Completed');
+      }).catch(error => {
+        console.log(error);
+      });
   }
 
-  incompleteTodo(todo): void{
-    todo.status = 'Incomplete';
-    todo.incomplete = true;
-    this.success('Todo Mark has Imcompleted');
+  incompleteTodo(id): void{
+    //todo.status = 'Incomplete';
+    //todo.incomplete = true;
+    this.addTaskService.incompleteTodo(id).then((res: any) => {
+      debugger
+      this.tasks = this.tasks.filter(task => task.id !== id);
+      this.getTodos();
+      this.success('Todo Mark has Incompleted');
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
+
+
+ ngOnInit(){
+    this.getTasks();
+    this.getTodos();
+  }
 }
 

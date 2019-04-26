@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,6 +38,11 @@ import { RegisterComponent } from './shared/register/register.component';
 import { AssignedTaskComponent } from './shared/assigned-task/assigned-task.component';
 import { environment } from 'src/environments/environment';
 import { MyProfileComponent } from './shared/my-profile/my-profile.component';
+import { LoginInterceptor } from './services/login.interceptor';
+import { LoginGuard } from './guards/login.guard';
+import { AuthLoginService } from './services/auth-login.service';
+import { AddTaskService } from './services/add-task.service';
+import { MyProfileService } from './services/my-profile.service';
 
 
 
@@ -87,7 +92,11 @@ import { MyProfileComponent } from './shared/my-profile/my-profile.component';
       apiKey: environment.maps_api
     })
   ],
-  providers: [],
+  providers: [AuthLoginService, AddTaskService, MyProfileService, LoginGuard,  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoginInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent],
   entryComponents: [
     LoginComponent,

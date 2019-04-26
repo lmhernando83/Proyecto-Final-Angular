@@ -1,7 +1,7 @@
 <div class="user-settings">
   <img role="button" class="btn btn--solid user-settings__img" src="http://lorempixel.com/30/30" alt="" id="btnDropdown" (click)="toogleClass()" data-target="#dropdownMenu" aria-haspopup="true" aria-expanded="false" aria-label="dropdownMenu">
     <div class="dropdown" *ngIf="dropdownOpen" id="dropdownMenu" aria-labelledby="dropdownMenu">
-      <a class="dropdown__item" routerLink="/my-profile">Settings</a>
-      <a class="dropdown__item" routerLink="/">Close</a>
+      <a class="dropdown__item" (click)="toogleClass()" routerLink="/my-profile">Settings</a>
+      <a class="dropdown__item" (click)="logOut()" (click)="toogleClass()" routerLink="/">Close</a>
     </div>
 </div>

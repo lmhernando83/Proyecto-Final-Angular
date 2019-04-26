@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AddTaskModel } from '../../models/add-task.model';
 
+
 @Component({
   selector: 'app-add-task',
   templateUrl: 'add-task-form.component.html',
@@ -17,12 +18,14 @@ export class AddTaskFormComponent implements OnInit {
   form: FormGroup;
   tasks: AddTaskModel[];
 
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddTaskFormComponent>, @Inject(MAT_DIALOG_DATA) private data: any) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<AddTaskFormComponent>,
+     @Inject(MAT_DIALOG_DATA) private data: any) {
   }
 
   initForm(edit: any = {}) {
     this.form = this.formBuilder.group({
-      id: '',
       title: ['', Validators.required],
       date: ['', Validators.required],
       description: ['', Validators.required],
@@ -32,7 +35,6 @@ export class AddTaskFormComponent implements OnInit {
 
   initFormData(edit: any = {}) {
     this.form = this.formBuilder.group({
-      id: this.data.id,
       title: [this.data.title],
       date: [this.data.date],
       description: [this.data.description],
@@ -55,6 +57,7 @@ export class AddTaskFormComponent implements OnInit {
   }
 
   onEdit(task) {
+    task._id = this.data._id;
     this.dialogRef.close(task);
     this.form.reset();
     this.save.emit(task);
