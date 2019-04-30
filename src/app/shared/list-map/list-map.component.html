@@ -8,9 +8,10 @@
         </div>
       </div>
     <ul class="list-map">
-      <li *ngFor="let user of users" class="list-map__item list-map__item--done">
-        <a [href]="user.url" class="list-map__item--link">
-          <img [src]="user.image" class="list-map__img">
+      <li *ngFor="let user of users; let indes = $index;" class="list-map__item list-map__item--done">
+        <a routerLink="/profile/user._id" class="list-map__item--link">
+          <!--<img [src]="user.image" class="list-map__img">-->
+          <img src="http://lorempixel.com/30/30/?r={{index}}" class="list-map__img">
         </a>
         <div class="list-map__info">
           <p class="list-map__title list-map__title--done">{{user.name}}</p>

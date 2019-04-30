@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { MatDialog, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { AddTaskModel } from '../../models/add-task.model';
+import { UserModel } from '../../models/user.model';
 import { AddTaskFormComponent } from '../add-task-form/add-task-form.component';
 import { AssignedTaskComponent } from '../assigned-task/assigned-task.component';
 import { AddTaskService } from '../../services/add-task.service';
@@ -17,12 +18,15 @@ import { AddTaskService } from '../../services/add-task.service';
 export class ListTaskComponent implements OnInit {
 @Input() save;
 @Input() edit;
+@Output() isCheckTask;
+selectedTask;
 
   constructor(public dialog: MatDialog, public snackbar: MatSnackBar, private addTaskService: AddTaskService,){}
 
   tasks: AddTaskModel[] = [];
   toggleTask: any = {};
-  task = false;
+  //task = false;
+  users: UserModel;
 
   todoTask: AddTaskModel[];
   toggleTodo: any = {};
@@ -37,15 +41,14 @@ export class ListTaskComponent implements OnInit {
         this.addTaskService.addTask(result).then(
           response => {
             console.log('New Task Add', response);
-            this.getTasks()
+            this.getTasks();
+            // Mensage
+            this.success('New task added');
           },
           err => {
             console.log('error New Task Add', err);
           }
         );
-
-        // Mensage
-        this.success('New task added');
       }
     });
   }
@@ -53,12 +56,31 @@ export class ListTaskComponent implements OnInit {
   getTasks(){
     this.addTaskService.getTask().then((tasks: any)=> {
       this.tasks = tasks;
+      this.tasks.forEach(task => {
+        task["isSelected"] = false;
+      })
     });
   }
 
+
   // Opens Assigned task Modal
   assignedTask(){
-    this.dialog.open(AssignedTaskComponent);
+   const dialogRef = this.dialog.open(AssignedTaskComponent, {data: this.selectedTask});
+  }
+
+  isCheck(task): void{
+    if(this.selectedTask === task) {
+      this.selectedTask = null;
+    } else {
+      this.selectedTask = task;
+      task["isSelected"] = true;
+    }
+
+    this.tasks.forEach(task => {
+      if(task !== this.selectedTask) {
+        task["isSelected"] = false;
+      }
+    })
   }
 
 
@@ -77,7 +99,6 @@ export class ListTaskComponent implements OnInit {
 
   deleteTask(id: number): void {
     this.addTaskService.deleteTask(id).then((id: any) => {
-      debugger
       this.tasks = this.tasks.filter(task => task.id !== id);
       this.getTasks();
       this.success('Task Deleted');
@@ -136,7 +157,6 @@ export class ListTaskComponent implements OnInit {
 
   completeTodo(id): void{
       this.addTaskService.completeTodo(id).then((res: any) => {
-        debugger
         this.tasks = this.tasks.filter(task => task.id !== id);
         this.getTodos();
         this.success('Todo Mark has Completed');
@@ -146,10 +166,7 @@ export class ListTaskComponent implements OnInit {
   }
 
   incompleteTodo(id): void{
-    //todo.status = 'Incomplete';
-    //todo.incomplete = true;
     this.addTaskService.incompleteTodo(id).then((res: any) => {
-      debugger
       this.tasks = this.tasks.filter(task => task.id !== id);
       this.getTodos();
       this.success('Todo Mark has Incompleted');

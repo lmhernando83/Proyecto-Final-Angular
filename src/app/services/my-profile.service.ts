@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { UserModel } from '../models/user.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,20 @@ export class MyProfileService {
   User: any;
   constructor(private httpClient: HttpClient) {}
 
-  getProfile(id): Promise<object>  {
-    console.log('llamando User');
-    debugger
-    return this.httpClient.get(`${environment.api_url}/api/v1/user/my-profile/${id}`).toPromise().then((user: UserModel)=> {
-      this.User = user;
-      return user;
-    });
+  getAllProfiles(): any  {
+    console.log('llamando a todos los Users');
+    return this.httpClient.get(`${environment.api_url}/api/v1/user/`).toPromise().then((users: any)=> users);
   }
+
+  getMyProfile(): any  {
+    console.log('llamando my User');
+    return this.httpClient.get(`${environment.api_url}/api/v1/user/my-user/`).toPromise().then((users: any)=> users);
+  }
+
+  editMyProfile(id): any  {
+    debugger
+    console.log('llamando edit User');
+    return this.httpClient.patch(`${environment.api_url}/api/v1/user/${id}`, id).toPromise().then((users: any)=> users);
+  }
+
 }

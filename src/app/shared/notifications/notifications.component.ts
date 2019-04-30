@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { AddTaskService } from '../../services/add-task.service';
 
 @Component({
   selector: 'app-notifications',
@@ -7,9 +8,16 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['notifications.component.scss'],
 })
 
-export class NotificationsComponent {
+export class NotificationsComponent implements OnInit{
 
-  constructor(public dialog: MatDialog){}
+  counter: number;
 
+  constructor(public dialog: MatDialog, public addTaskService: AddTaskService){}
+
+  ngOnInit(){
+    const counter = this.addTaskService.getTodo.length;
+    this.counter = counter;
+    console.log(counter);
+  }
 
 }

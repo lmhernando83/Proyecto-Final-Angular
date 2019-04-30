@@ -34,15 +34,13 @@ export class AddTaskService {
   }
 
   editTask(task): Promise<object>  {
-    debugger
     console.log('llamando edit task');
     return this.httpClient.patch(`${environment.api_url}/api/v1/task/edit/${task._id}`, task).toPromise().then((task: AddTaskModel)=> task);
   }
 
   assingTask(task, user): Promise<object>  {
-    debugger
     console.log('llamando assign task');
-    return this.httpClient.patch(`${environment.api_url}/api/v1/task/assign/${task._id}/${user._id}`, task).toPromise().then((task: AddTaskModel)=> task);
+    return this.httpClient.patch(`${environment.api_url}/api/v1/task/assign/${task._id}/${user._id}`, {task: task._id, user: user._id}).toPromise().then((task: AddTaskModel)=> task);
   }
 
   getTodo(): Promise<object>  {
@@ -55,25 +53,21 @@ export class AddTaskService {
 
   rejectTodo(todo): Promise<object>  {
     console.log('llamando reject task');
-    debugger
     return this.httpClient.patch(`${environment.api_url}/api/v1/task/reject/${todo._id}`, {id: todo._id}).toPromise().then((todo: AddTaskModel)=> todo);
   }
 
   acceptTodo(todo): Promise<object>  {
     console.log('llamando accept task');
-    debugger
     return this.httpClient.patch(`${environment.api_url}/api/v1/task/accept/${todo._id}`, {id: todo._id}).toPromise().then((todo: AddTaskModel)=> todo);
   }
 
   completeTodo(todo): Promise<object>  {
     console.log('llamando complete task');
-    debugger
     return this.httpClient.patch(`${environment.api_url}/api/v1/task/completed/${todo._id}`, {id: todo._id}).toPromise().then((todo: AddTaskModel)=> todo);
   }
 
   incompleteTodo(todo): Promise<object>  {
     console.log('llamando incomplete task');
-    debugger
     return this.httpClient.patch(`${environment.api_url}/api/v1/task/incompleted/${todo._id}`, {id: todo._id}).toPromise().then((todo: AddTaskModel)=> todo);
   }
 }

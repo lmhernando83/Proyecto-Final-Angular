@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MyProfileService } from "../../services/my-profile.service";
 
 @Component ({
   selector: 'app-list-map',
@@ -6,24 +8,21 @@ import { Component } from '@angular/core';
   styleUrls: ['list-map.component.scss'],
 })
 
-export class ListMapComponent {
+export class ListMapComponent implements OnInit {
 
-  users: any[] = [
-    {
-      id: 1,
-      name: 'Maria',
-      image: 'http://lorempixel.com/30/30',
-      url: 'profile/1',
-      lat: 40.391260,
-      lng: -3.695460,
-    },{
-      id: 2,
-      name: 'Pepe',
-      image: 'http://lorempixel.com/30/30',
-      url: 'profile/2',
-      lat: 40.406300,
-      lng: -3.693540,
-    }
-  ];
+  constructor(private httpClient: HttpClient, private myProfileService: MyProfileService) {}
+
+  users: any[] = [];
+
+  getAllProfiles(): void{
+    debugger
+    this.myProfileService.getAllProfiles().then((users: any)=> {
+      this.users = users;
+    });
+  }
+
+  ngOnInit() {
+    this.getAllProfiles();
+  }
 
 }

@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   api_url: 'http://localhost:3000',
   // Upload on github with no Google Maps Api
-  maps_api: ''
+  maps_api: 'AIzaSyB8xc7hocb9ipZFlF--JF5gbrrFzg88jZM'
 };
 
 /*

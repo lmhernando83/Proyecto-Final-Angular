@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from '../../models/user.model';
 import { MyProfileService } from "../../services/my-profile.service";
@@ -9,38 +9,54 @@ import { MyProfileService } from "../../services/my-profile.service";
   styleUrls: ['my-profile.component.scss'],
 })
 
-export class MyProfileComponent {
+export class MyProfileComponent implements OnInit {
 
   @Output() save = new EventEmitter();
   form: FormGroup;
-  users: UserModel[] = [];
-
+  user: UserModel;
+  users: UserModel;
   constructor(private formBuilder: FormBuilder, private myProfileService: MyProfileService) {
   }
 
 
-  initForm(edit: any = {}) {
+  initForm() {
     this.form = this.formBuilder.group({
-      id: ['null'],
-      name: ['{{user.name}}', Validators.compose([Validators.required, Validators.minLength(8)])],
-      description: ['Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, amet quas. In enim impedit consequuntur sit eius quod quas numquam voluptas at veniam totam nulla officia, hic eveniet sunt reiciendis iure aperiam fugit aliquid quidem. Corporis doloremque molestiae quis odit, natus temporibus est at quasi inventore velit ad necessitatibus fuga tempora consectetur molestias delectus nesciunt placeat illum in atque non nisi? Nesciunt adipisci maxime esse reiciendis mollitia saepe repellat ipsum quas! Deleniti ratione quam corporis repudiandae expedita. Deserunt, dolor nulla possimus ex voluptatum quis eligendi maiores temporibus, obcaecati error ad laboriosam modi. Perspiciatis officia reiciendis eligendi cumque tempore obcaecati officiis autem sint cupiditate mollitia, blanditiis velit magni nam cum alias nisi molestiae voluptatum laborum et earum quisquam rerum deleniti error nesciunt? Non voluptate impedit accusamus distinctio. Excepturi rerum voluptatum libero ipsa illo quidem quae eligendi aperiam aliquid nemo iusto in quisquam, reiciendis minima minus perspiciatis, dignissimos obcaecati, distinctio doloremque dicta?', Validators.required],
+      name: [this.users ? this.users.name : '', Validators.compose([Validators.required, Validators.minLength(8)])],
+      description: [this.users ? this.users.description :'', Validators.required],
       image: ['', Validators.required]
     })
   }
 
-  getProfiles(user){
-    this.myProfileService.getProfile(user).then((user: any)=> {
-      this.users = user;
+  getMyProfile(): void{
+    this.myProfileService.getMyProfile().then((users: any)=> {
+      this.users = users;
+      //if(this.users.description)
+      this.form.controls['name'].setValue(this.users.name);
+      this.form.controls['description'].setValue(this.users.description);
     });
   }
 
+  editMyProfile(id){
+    //console.log(this.users);
+    id = (this.users['_id']);
+    this.myProfileService.editMyProfile(id).then(
+      data => {
+        console.log('Edit Profile', data);
+        this.onSave(id);
+      },
+      err => {
+        console.log('error Edit Profile', err);
+      }
+    );
+  }
+
   ngOnInit() {
-    this.getProfiles(this.users);
     this.initForm();
+    this.getMyProfile();
   }
 
   onSave(value) {
+    console.log(value);
     this.save.emit(value);
-    //this.form.reset();
   }
 }

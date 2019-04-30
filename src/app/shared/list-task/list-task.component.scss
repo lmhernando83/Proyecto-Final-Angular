@@ -65,6 +65,10 @@
     background: rgba(253, 76, 76, 0.5);
   }
 
+  &--no-data{
+    text-indent: 10px;
+  }
+
   &__status--done{
     font-size: 10px;
     margin-right: 10px;
