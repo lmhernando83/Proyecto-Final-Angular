@@ -45,6 +45,7 @@ export class AssignedTaskComponent {
         this.dialogRef.close(response);
         this.getTasks();
         this.success('Task Assigned');
+        window.location.reload();
       },
       err => {
         console.log('error Assigned Task', err);

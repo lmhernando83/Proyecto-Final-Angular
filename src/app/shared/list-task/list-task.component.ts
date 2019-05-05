@@ -5,8 +5,7 @@ import { UserModel } from '../../models/user.model';
 import { AddTaskFormComponent } from '../add-task-form/add-task-form.component';
 import { AssignedTaskComponent } from '../assigned-task/assigned-task.component';
 import { AddTaskService } from '../../services/add-task.service';
-
-
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-list-task',
@@ -21,7 +20,7 @@ export class ListTaskComponent implements OnInit {
 @Output() isCheckTask;
 selectedTask;
 
-  constructor(public dialog: MatDialog, public snackbar: MatSnackBar, private addTaskService: AddTaskService,){}
+  constructor(public dialog: MatDialog, public snackbar: MatSnackBar, private addTaskService: AddTaskService, private dialogervice: DialogService){}
 
   tasks: AddTaskModel[] = [];
   toggleTask: any = {};
@@ -98,12 +97,17 @@ selectedTask;
 
 
   deleteTask(id: number): void {
-    this.addTaskService.deleteTask(id).then((id: any) => {
-      this.tasks = this.tasks.filter(task => task.id !== id);
-      this.getTasks();
-      this.success('Task Deleted');
-    }).catch(error => {
-      console.log(error);
+    this.dialogervice.openConfirmDialog('Are you sure you want to delete this task ?')
+    .afterClosed().subscribe(res =>{
+      if(res){
+        this.addTaskService.deleteTask(id).then((id: any) => {
+          this.tasks = this.tasks.filter(task => task.id !== id);
+          this.getTasks();
+          this.success('Task Deleted');
+        }).catch(error => {
+          console.log(error);
+        });
+      }
     });
   }
 
@@ -134,12 +138,17 @@ selectedTask;
   }
 
   rejectTodo(id: number): void {
-    this.addTaskService.rejectTodo(id).then((id: any) => {
-      this.tasks = this.tasks.filter(task => task.id !== id);
-      this.getTodos();
-      this.success('Todo Rejected');
-    }).catch(error => {
-      console.log(error);
+    this.dialogervice.openConfirmDialog('Are you sure you want to reject this todo ?')
+    .afterClosed().subscribe(res =>{
+      if(res){
+        this.addTaskService.rejectTodo(id).then((id: any) => {
+          this.tasks = this.tasks.filter(task => task.id !== id);
+          this.getTodos();
+          this.success('Todo Rejected');
+        }).catch(error => {
+          console.log(error);
+        });
+      }
     });
   }
 

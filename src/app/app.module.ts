@@ -43,6 +43,7 @@ import { LoginGuard } from './guards/login.guard';
 import { AuthLoginService } from './services/auth-login.service';
 import { AddTaskService } from './services/add-task.service';
 import { MyProfileService } from './services/my-profile.service';
+import { DialogConfirmComponent } from './shared/dialog-confirm/dialog-confirm.component';
 
 
 
@@ -66,6 +67,7 @@ import { MyProfileService } from './services/my-profile.service';
     UserProfileComponent,
     HomeComponent,
     FooterComponent,
+    DialogConfirmComponent,
     HomePageComponent,
     InitPanelPageComponent,
     MapPageComponent,
@@ -102,7 +104,8 @@ import { MyProfileService } from './services/my-profile.service';
     LoginComponent,
     RegisterComponent,
     AddTaskFormComponent,
-    AssignedTaskComponent
+    AssignedTaskComponent,
+    DialogConfirmComponent
   ]
 })
 export class AppModule { }
