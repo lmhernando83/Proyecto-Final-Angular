@@ -39,7 +39,6 @@ export class AssignedTaskComponent {
   }
 
   assignedTask(task, user){
-    debugger
     this.addTaskService.assingTask(this.data, user).then(
       response => {
         console.log('Assigned Task', response);

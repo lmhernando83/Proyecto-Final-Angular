@@ -5,7 +5,7 @@
       <li *ngFor="let user of users" class="assigned-task__item">
         <a (click)="closeModal()" routerLink="/profile/user._id" class="assigned-task__link">
           <!--<img [src]="user.image" class="assigned-task__img">-->
-          <img src="http://lorempixel.com/30/30/" class="assigned-task__img">
+          <img src="../../../assets/img/avatar.png" class="assigned-task__img">
         </a>
         <div class="assigned-task__info">
           <p class="assigned-task__title">{{user.name}}</p>

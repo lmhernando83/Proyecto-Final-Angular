@@ -20,8 +20,9 @@ export class UserSettingsComponent {
   }
 
   logOut(){
+    window.location.reload();
     localStorage.removeItem('token');
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 }
 

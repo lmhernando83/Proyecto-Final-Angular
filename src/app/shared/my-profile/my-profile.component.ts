@@ -40,9 +40,9 @@ export class MyProfileComponent implements OnInit {
     //console.log(this.users);
     id = (this.users['_id']);
     this.myProfileService.editMyProfile(id).then(
-      data => {
-        console.log('Edit Profile', data);
-        this.onSave(id);
+      value => {
+        console.log('Edit Profile', value);
+        //this.onSave(id);
       },
       err => {
         console.log('error Edit Profile', err);
@@ -58,5 +58,6 @@ export class MyProfileComponent implements OnInit {
   onSave(value) {
     console.log(value);
     this.save.emit(value);
+    this.editMyProfile(value);
   }
 }

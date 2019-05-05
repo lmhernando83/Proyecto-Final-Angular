@@ -15,7 +15,6 @@ export class ListMapComponent implements OnInit {
   users: any[] = [];
 
   getAllProfiles(): void{
-    debugger
     this.myProfileService.getAllProfiles().then((users: any)=> {
       this.users = users;
     });

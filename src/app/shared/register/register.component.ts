@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { AuthLoginService } from '../../services/auth-login.service';
 import { Router } from '@angular/router';
@@ -25,6 +25,8 @@ export class RegisterComponent implements OnInit {
     private httpClient: HttpClient,
     private authLoginService: AuthLoginService,
     public dialogRef: MatDialogRef<RegisterComponent>,
+    public dialog: MatDialog,
+    public snackbar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) private data: any,
     private router: Router) {
   }
@@ -50,6 +52,8 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/init-panel']);
           console.log('Register OK', response);
           this.dialogRef.close(response);
+          // Mensage
+          this.success('New User Register Successfully');
         },
         err => {
           console.log('error en el Register', err);
@@ -58,6 +62,18 @@ export class RegisterComponent implements OnInit {
       );
     }
     this.form.reset();
+  }
+
+  // Config Messages
+  success(msg){
+    this.config['panelClass'] = ['notification' , 'success'];
+    this.snackbar.open(msg, '', this.config);
+  }
+
+  config: MatSnackBarConfig = {
+    duration: 3000,
+    horizontalPosition: "right",
+    verticalPosition: 'top'
   }
 
 }
