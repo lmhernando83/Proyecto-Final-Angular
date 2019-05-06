@@ -11,7 +11,7 @@
       <li *ngFor="let user of users" class="list-map__item list-map__item--done">
         <a routerLink="/profile/user._id" class="list-map__item--link">
           <!--<img [src]="user.image" class="list-map__img">-->
-          <img src="../../../assets/img/avatar.png" class="list-map__img">
+          <img [src]="user.image" class="list-map__img">
         </a>
         <div class="list-map__info">
           <p class="list-map__title list-map__title--done">{{user.name}}</p>

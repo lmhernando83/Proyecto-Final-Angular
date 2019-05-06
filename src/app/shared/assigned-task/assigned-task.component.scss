@@ -34,6 +34,18 @@
     margin-right: 10px;
     width: 30px;
     height: 30px;
+    position: relative;
+
+    &::before{
+      content: '';
+      display: block;
+      position: absolute;
+      width: 104px;
+      height: 104px;
+      background-image: url(../../../assets/img/avatar.png);
+      background-size: cover;
+      border-radius: 50%;
+    }
   }
 
   &__info{

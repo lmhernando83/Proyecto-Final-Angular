@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MyProfileService } from "../../services/my-profile.service";
+import { UserModel } from '../../models/user.model';
 import { AddTaskModel } from '../../models/add-task.model';
 import { AddTaskService } from '../../services/add-task.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatSnackBarConfig } from '@angular/material';
@@ -22,19 +23,13 @@ export class AssignedTaskComponent {
     public dialogRef: MatDialogRef<AssignedTaskComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any) {}
 
-  users: any[] = [];
+  users: UserModel;
   user: any[] = [];
   tasks: AddTaskModel[] = [];
 
   getAllProfiles(): void{
     this.myProfileService.getAllProfiles().then((users: any)=> {
       this.users = users;
-    });
-  }
-
-  getMyProfile(): void{
-    this.myProfileService.getMyProfile().then((user: any)=> {
-      this.user = user;
     });
   }
 

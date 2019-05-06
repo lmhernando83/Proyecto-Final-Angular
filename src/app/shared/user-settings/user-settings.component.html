@@ -1,5 +1,5 @@
 <div class="user-settings">
-  <img role="button" class="btn btn--solid user-settings__img" src="../../../assets/img/avatar.png" alt="" id="btnDropdown" (click)="toogleClass()" data-target="#dropdownMenu" aria-haspopup="true" aria-expanded="false" aria-label="dropdownMenu">
+  <img role="button" class="btn btn--solid user-settings__img" src="{{users?.image}}" alt="" id="btnDropdown" (click)="toogleClass()" data-target="#dropdownMenu" aria-haspopup="true" aria-expanded="false" aria-label="dropdownMenu">
     <div class="dropdown" *ngIf="dropdownOpen" id="dropdownMenu" aria-labelledby="dropdownMenu">
       <a class="dropdown__item" (click)="toogleClass()" routerLink="/my-profile">Settings</a>
       <a class="dropdown__item" (click)="logOut()" (click)="toogleClass()" routerLink="/">Close</a>

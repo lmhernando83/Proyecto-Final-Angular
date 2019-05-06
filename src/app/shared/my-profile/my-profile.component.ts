@@ -16,6 +16,7 @@ export class MyProfileComponent implements OnInit {
   form: FormGroup;
   user: UserModel;
   users: UserModel;
+  image: [];
   constructor(private formBuilder: FormBuilder, private myProfileService: MyProfileService, public dialog: MatDialog, public snackbar: MatSnackBar) {
   }
 
@@ -37,7 +38,7 @@ export class MyProfileComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [this.users ? this.users.name : '', Validators.compose([Validators.required, Validators.minLength(8)])],
       description: [this.users ? this.users.description :'', Validators.required],
-      image: ['', Validators.required]
+      image: [this.users ? this.users.image :'']
     })
   }
 
@@ -47,6 +48,7 @@ export class MyProfileComponent implements OnInit {
       //if(this.users.description)
       this.form.controls['name'].setValue(this.users.name);
       this.form.controls['description'].setValue(this.users.description);
+      this.form.controls['image'].setValue(this.users.image);
     });
   }
 
@@ -56,6 +58,7 @@ export class MyProfileComponent implements OnInit {
       value => {
         console.log('Edit Profile', value);
         this.success('Profile Edited');
+        window.location.reload();
       },
       err => {
         console.log('error Edit Profile', err);
