@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { UserModel } from '../../models/user.model';
 import { MyProfileService } from "../../services/my-profile.service";
 
@@ -15,7 +16,20 @@ export class MyProfileComponent implements OnInit {
   form: FormGroup;
   user: UserModel;
   users: UserModel;
-  constructor(private formBuilder: FormBuilder, private myProfileService: MyProfileService) {
+  constructor(private formBuilder: FormBuilder, private myProfileService: MyProfileService, public dialog: MatDialog, public snackbar: MatSnackBar) {
+  }
+
+
+  // Config Messages
+  success(msg){
+    this.config['panelClass'] = ['notification' , 'success'];
+    this.snackbar.open(msg, '', this.config);
+  }
+
+  config: MatSnackBarConfig = {
+    duration: 3000,
+    horizontalPosition: "right",
+    verticalPosition: 'top'
   }
 
 
@@ -36,13 +50,12 @@ export class MyProfileComponent implements OnInit {
     });
   }
 
-  editMyProfile(id){
+  editMyProfile(value: any){
     //console.log(this.users);
-    id = (this.users['_id']);
-    this.myProfileService.editMyProfile(id).then(
+    this.myProfileService.editMyProfile(this.users['_id'], value).then(
       value => {
         console.log('Edit Profile', value);
-        //this.onSave(id);
+        this.success('Profile Edited');
       },
       err => {
         console.log('error Edit Profile', err);

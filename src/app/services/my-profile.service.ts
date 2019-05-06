@@ -21,9 +21,10 @@ export class MyProfileService {
     return this.httpClient.get(`${environment.api_url}/api/v1/user/my-user/`).toPromise().then((users: any)=> users);
   }
 
-  editMyProfile(id): any  {
+  editMyProfile(id, value): any  {
+    debugger
     console.log('llamando edit User');
-    return this.httpClient.patch(`${environment.api_url}/api/v1/user/${id}`, id).toPromise().then((users: any)=> users);
+    return this.httpClient.patch(`${environment.api_url}/api/v1/user/${id}`, value).toPromise().then((id: any)=> id);
   }
 
   getUser(id): any  {
