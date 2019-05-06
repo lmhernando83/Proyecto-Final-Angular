@@ -14,9 +14,11 @@ export class MapComponent implements OnInit{
 
   lat: number;
   lng: number;
+  show;
 
+  users: any[] = [];
   user: any[] = [];
-  users: any[] = [
+  /*users: any[] = [
   {
     id: 1,
     name: 'lmhernando83',
@@ -32,11 +34,21 @@ export class MapComponent implements OnInit{
     lat: 40.406300,
     lng: -3.693540,
   }
-];
+];*/
 
   getAllProfiles(): void{
     this.myProfileService.getAllProfiles().then((users: any)=> {
       this.users = users;
+      this.users.forEach((user,index) => {
+        if(index === 0) {
+          user.lat = 40.391260;
+          user.lng = -3.695460;
+        } else if(index === 1) {
+          user.lat = 40.406300;
+          user.lng = -3.693540;
+        }
+      })
+      debugger;
     });
   }
 
@@ -51,7 +63,7 @@ export class MapComponent implements OnInit{
 
   ngOnInit(){
     this.getUserLocation();
-    //this.getAllProfiles();
+    this.getAllProfiles();
   }
 
 }
