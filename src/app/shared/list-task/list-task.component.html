@@ -55,7 +55,7 @@
             <i class="icon-cross"><span class="sr-only">Reject Task</span></i></button>
             <button (click)="acceptTodo(todo)" *ngIf="todo.status === 'Assigned'" type="button" class="btn btn--solid btn--icon">
             <i class="icon-checkmark"><span class="sr-only">Accept Task</span></i></button>
-            <button (click)="incompleteTodo(todo)" *ngIf="todo.status === 'Accepted'" class="btn">Incomplete</button>
+            <!-- <button (click)="incompleteTodo(todo)" *ngIf="todo.status === 'Accepted'" class="btn">Incomplete</button> -->
             <button (click)="completeTodo(todo)" *ngIf="todo.status === 'Accepted'" class="btn">Complete</button>
             <div class="list-task__description" *ngIf="toggleTodo[i]">{{todo.description}}</div>
           </li>

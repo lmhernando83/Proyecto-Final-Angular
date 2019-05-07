@@ -21,6 +21,18 @@
     border-radius: 50px;
     width: 30px;
     height: 30px;
+    position: relative;
+
+    &::before{
+      content: '';
+      display: block;
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-image: url(../../../assets/img/avatar.png);
+      background-size: cover;
+      border-radius: 50%;
+    }
   }
 
   &__info{
