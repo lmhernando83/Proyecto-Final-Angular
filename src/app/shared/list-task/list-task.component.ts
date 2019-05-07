@@ -64,7 +64,10 @@ selectedTask;
 
   // Opens Assigned task Modal
   assignedTask(){
-   const dialogRef = this.dialog.open(AssignedTaskComponent, {data: this.selectedTask});
+   const dialogRef = this.dialog.open(AssignedTaskComponent, {data: this.selectedTask})
+   .afterClosed().subscribe(res =>{
+      this.getTasks();
+  });
   }
 
   isCheck(task): void{

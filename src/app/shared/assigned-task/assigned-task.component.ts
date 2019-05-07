@@ -5,6 +5,7 @@ import { UserModel } from '../../models/user.model';
 import { AddTaskModel } from '../../models/add-task.model';
 import { AddTaskService } from '../../services/add-task.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class AssignedTaskComponent {
 
   constructor(
     private httpClient: HttpClient,
+    private router: Router,
     private myProfileService: MyProfileService,
     private addTaskService: AddTaskService,
     public snackbar: MatSnackBar,
@@ -33,14 +35,25 @@ export class AssignedTaskComponent {
     });
   }
 
+  navigate(id){
+    console.log(id);
+    this.dialogRef.close();
+    this.myProfileService.getUser(this.data._id).then(
+      response => {
+        this.router.navigate(['profile', id]);
+      },
+      err => {
+        console.log('error Navigate', err);
+      }
+    );
+  }
+
   assignedTask(task, user){
     this.addTaskService.assingTask(this.data, user).then(
       response => {
         console.log('Assigned Task', response);
         this.dialogRef.close(response);
-        this.getTasks();
         this.success('Task Assigned');
-        window.location.reload();
       },
       err => {
         console.log('error Assigned Task', err);
@@ -64,10 +77,6 @@ export class AssignedTaskComponent {
     duration: 3000,
     horizontalPosition: "right",
     verticalPosition: 'top'
-  }
-
-  closeModal(){
-    this.dialogRef.close();
   }
 
   ngOnInit() {

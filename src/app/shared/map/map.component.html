@@ -21,7 +21,7 @@
     </agm-marker> -->
     <agm-marker *ngFor="let user of users" [latitude]="user.lat" [longitude]="user.lng">
       <agm-info-window>
-        <a [href]="user.url">
+        <a (click)="navigate(user._id)">
         <img class="map__img" [src]="user.image" alt="">
         </a>
         <hr>

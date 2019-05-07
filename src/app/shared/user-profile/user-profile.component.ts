@@ -12,11 +12,12 @@ export class UserProfileComponent{
 
   constructor(private httpClient: HttpClient, private myProfileService: MyProfileService) {}
 
-  users: any[] = [];
+  user: any[] = [];
 
   getUser(id): void{
-    this.myProfileService.getUser(id).then((users: any)=> {
-      this.users = users;
+    debugger
+    this.myProfileService.getUser(id).then((user: any)=> {
+      this.user = user;
     });
   }
 

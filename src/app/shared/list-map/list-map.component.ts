@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MyProfileService } from "../../services/my-profile.service";
+import { Router } from '@angular/router';
 
 @Component ({
   selector: 'app-list-map',
@@ -10,7 +11,7 @@ import { MyProfileService } from "../../services/my-profile.service";
 
 export class ListMapComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient, private myProfileService: MyProfileService) {}
+  constructor(private httpClient: HttpClient, private myProfileService: MyProfileService, private router: Router) {}
 
   users: any[] = [];
 
@@ -18,6 +19,11 @@ export class ListMapComponent implements OnInit {
     this.myProfileService.getAllProfiles().then((users: any)=> {
       this.users = users;
     });
+  }
+
+  navigate(id){
+    console.log(id);
+    this.router.navigate(['profile', id])
   }
 
   ngOnInit() {

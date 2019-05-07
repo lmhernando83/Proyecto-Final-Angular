@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MyProfileService } from "../../services/my-profile.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -10,7 +11,7 @@ import { MyProfileService } from "../../services/my-profile.service";
 
 export class MapComponent implements OnInit{
 
-  constructor(private httpClient: HttpClient, private myProfileService: MyProfileService) {}
+  constructor(private httpClient: HttpClient, private myProfileService: MyProfileService,  private router: Router) {}
 
   lat: number;
   lng: number;
@@ -48,7 +49,6 @@ export class MapComponent implements OnInit{
           user.lng = -3.693540;
         }
       })
-      debugger;
     });
   }
 
@@ -59,6 +59,11 @@ export class MapComponent implements OnInit{
         this.lng = position.coords.longitude;
       })
     }
+  }
+
+  navigate(id){
+    console.log(id);
+    this.router.navigate(['profile', id])
   }
 
   ngOnInit(){

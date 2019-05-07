@@ -9,7 +9,8 @@
       </div>
     <ul class="list-map">
       <li *ngFor="let user of users" class="list-map__item list-map__item--done">
-        <a routerLink="/profile/user._id" class="list-map__item--link">
+          <!-- <a [routerLink]="['profile', user._id]" class="list-map__item--link"> -->
+          <a (click)="navigate(user._id)" class="list-map__item--link">
           <!--<img [src]="user.image" class="list-map__img">-->
           <img [src]="user.image" class="list-map__img">
         </a>

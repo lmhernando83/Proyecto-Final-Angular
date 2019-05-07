@@ -3,7 +3,8 @@
     <button mat-dialog-close class="btn btn--solid"><i class="icon-arrow-left2"><span> Back</span></i></button>
     <ul class="assigned-task__list">
       <li *ngFor="let user of users" class="assigned-task__item">
-        <a (click)="closeModal()" routerLink="/profile/user._id" class="assigned-task__link">
+        <!-- <a (click)="closeModal()" [routerLink]="['profile', user._id]" class="assigned-task__link"> -->
+          <a (click)="navigate(user._id)" class="assigned-task__link">
           <!--<img [src]="user.image" class="assigned-task__img">-->
           <img [src]="user.image" class="assigned-task__img">
         </a>
