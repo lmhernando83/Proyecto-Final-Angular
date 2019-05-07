@@ -35,6 +35,7 @@
     width: 30px;
     height: 30px;
     position: relative;
+    overflow: hidden;
 
     &::before{
       content: '';
@@ -44,7 +45,6 @@
       height: 30px;
       background-image: url(../../../assets/img/avatar.png);
       background-size: cover;
-      border-radius: 50%;
     }
   }
 
