@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -8,6 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class MyProfileService {
 
+  avatar = new Subject<string>();
   User: any;
   constructor(private httpClient: HttpClient) {}
 
@@ -22,7 +24,6 @@ export class MyProfileService {
   }
 
   editMyProfile(id, value): any  {
-    debugger
     console.log('llamando edit User');
     return this.httpClient.patch(`${environment.api_url}/api/v1/user/${id}`, value).toPromise().then((id: any)=> id);
   }
@@ -30,6 +31,10 @@ export class MyProfileService {
   getUser(id): any  {
     console.log('llamando edit User');
     return this.httpClient.get(`${environment.api_url}/api/v1/user/${id}`, id).toPromise().then((users: any)=> users);
+  }
+
+  updateAvatar(url) {
+    this.avatar.next(url);
   }
 
 }

@@ -57,8 +57,9 @@ export class MyProfileComponent implements OnInit {
     this.myProfileService.editMyProfile(this.users['_id'], value).then(
       value => {
         console.log('Edit Profile', value);
+        this.myProfileService.updateAvatar(value.image);
         this.success('Profile Edited');
-        window.location.reload();
+        this.getMyProfile();
       },
       err => {
         console.log('error Edit Profile', err);

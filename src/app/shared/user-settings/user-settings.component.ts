@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserModel } from '../../models/user.model';
 import { MyProfileService } from "../../services/my-profile.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-settings',
@@ -9,7 +10,7 @@ import { MyProfileService } from "../../services/my-profile.service";
   styleUrls: ['user-settings.component.scss'],
 })
 
-export class UserSettingsComponent implements OnInit {
+export class UserSettingsComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
@@ -18,6 +19,7 @@ export class UserSettingsComponent implements OnInit {
 
   dropdownOpen: boolean = false;
   users: UserModel;
+  destroy: Subscription;
 
   toogleClass(){
     this.dropdownOpen = !this.dropdownOpen;
@@ -36,6 +38,17 @@ export class UserSettingsComponent implements OnInit {
 
   ngOnInit() {
     this.getMyProfile();
+    this.destroy = this.myProfileService.avatar.subscribe(val => {
+      if(val) {
+        this.users.image = val;
+      }
+    })
+  }
+
+  ngOnDestroy(){
+    if (this.destroy) {
+      this.destroy.unsubscribe();
+    }
   }
 }
 

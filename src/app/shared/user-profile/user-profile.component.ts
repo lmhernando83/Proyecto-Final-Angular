@@ -17,7 +17,6 @@ export class UserProfileComponent implements OnInit{
   id: string;
 
   getUser(id): void{
-    debugger
     this.myProfileService.getUser(id).then((user: any)=> {
       this.user = user;
     });
