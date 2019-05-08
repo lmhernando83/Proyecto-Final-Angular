@@ -24,7 +24,6 @@ export class UserSettingsComponent implements OnInit {
   }
 
   logOut(){
-    window.location.reload();
     localStorage.removeItem('token');
     this.router.navigate(['/']);
   }

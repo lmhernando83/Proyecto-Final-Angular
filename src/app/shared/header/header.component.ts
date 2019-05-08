@@ -25,6 +25,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
          // console.log(event)
          if(event.url !== "/"){
            this.user = true
+         }else{
+           this.user = false
          }
       }
   });

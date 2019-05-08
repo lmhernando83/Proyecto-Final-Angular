@@ -72,6 +72,7 @@
   &__status--done{
     font-size: 10px;
     margin-right: 10px;
+    text-transform: capitalize;
   }
 
   &__status--undone{
@@ -83,6 +84,7 @@
     color: #c5c5c5;
     font-size: 10px;
     margin-right: 10px;
+    text-transform: capitalize;
   }
 
   &__description{

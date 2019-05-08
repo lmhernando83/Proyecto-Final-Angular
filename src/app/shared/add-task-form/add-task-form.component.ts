@@ -28,8 +28,7 @@ export class AddTaskFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       date: ['', Validators.required],
-      description: ['', Validators.required],
-      status: 'Pending'
+      description: ['', Validators.required]
     })
   }
 
@@ -37,8 +36,7 @@ export class AddTaskFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       title: [this.data.title],
       date: [this.data.date],
-      description: [this.data.description],
-      status: 'Pending'
+      description: [this.data.description]
     })
   }
 

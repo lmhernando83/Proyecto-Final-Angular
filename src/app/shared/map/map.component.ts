@@ -42,11 +42,29 @@ export class MapComponent implements OnInit{
       this.users = users;
       this.users.forEach((user,index) => {
         if(index === 0) {
-          user.lat = 40.391260;
-          user.lng = -3.695460;
+          user.lat = 40.438072;
+          user.lng = -3.626636;
         } else if(index === 1) {
-          user.lat = 40.406300;
-          user.lng = -3.693540;
+          user.lat = 40.438391;
+          user.lng = -3.626798;
+        }else if(index === 2) {
+          user.lat = 40.442923;
+          user.lng = -3.619347;
+        }else if(index === 3) {
+          user.lat = 40.435558;
+          user.lng = -3.620447;
+        }else if(index === 4) {
+          user.lat = 40.438051;
+          user.lng = -3.637433;
+        }else if(index === 5) {
+          user.lat = 40.446547;
+          user.lng = -3.612298;
+        }else if(index === 6) {
+          user.lat = 40.447521;
+          user.lng = -3.637167;
+        }else if(index === 7) {
+          user.lat = 40.440086;
+          user.lng = -3.618938;
         }
       })
     });

@@ -17,7 +17,7 @@
         <ul class="list-task">
           <div class="list-task--no-data" *ngIf="tasks.length === 0"> No tasks yet. Add a new Task</div>
           <li class="list-task__item task-item--done" *ngFor="let task of tasks; let i = index;">
-              <input class="list-task__checkbox" type="checkbox" (click)="isCheck(task)" [checked]="task.isSelected">
+              <input *ngIf="task.status === 'Pending'" class="list-task__checkbox" type="checkbox" (click)="isCheck(task)" [checked]="task.isSelected">
               <div class="list-task__info" (click)="toggleTask[i] = !toggleTask[i]">
                 <p class="list-task__title title--done">{{task.title}}</p>
                 <p class="list-task__date">{{task.date | date: 'dd / MM / yyyy'}}</p>

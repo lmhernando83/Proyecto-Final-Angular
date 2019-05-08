@@ -12,7 +12,7 @@
           <p class="assigned-task__title">{{user.name}}</p>
         </div>
         <div class="assigned-task__status">
-          <p class="assigned-task__status--distance">200m</p>
+          <p class="assigned-task__status--distance">{{user.dist}}</p>
         </div>
         <button (click)="assignedTask(task,user)" type="button" class="btn">Assigned</button>
       </li>
